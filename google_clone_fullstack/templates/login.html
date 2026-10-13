@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Log in · Google Clone{% endblock %}
+{% block content %}
+<main class="auth-main">
+  <section class="auth-card">
+    <div class="wordmark auth-wordmark"><span class="c-blue">G</span><span class="c-red">o</span><span class="c-yellow">o</span><span class="c-blue">g</span><span class="c-green">l</span><span class="c-red">e</span></div>
+    <h1>Log in</h1><p class="subtle">Use your Google Clone account</p>
+    <form method="post" class="auth-form">
+      <label for="identity">Username or email</label>
+      <input id="identity" name="identity" type="text" autocomplete="username" required maxlength="254">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <div class="auth-bottom"><a href="{{ url_for('register') }}">Create account</a><button class="button button-blue" type="submit">Log in</button></div>
+    </form>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Google Clone{% endblock %}
+{% block content %}
+<main class="home-main">
+  <h1 class="wordmark main-wordmark" aria-label="Google">
+    <span class="c-blue">G</span><span class="c-red">o</span><span class="c-yellow">o</span><span class="c-blue">g</span><span class="c-green">l</span><span class="c-red">e</span>
+  </h1>
+  {% include "_searchbox.html" %}
+  <p class="language-line">A simple search experience built with <strong>Flask</strong>.</p>
+  {% if g.user and recent %}
+  <section class="recent-panel">
+    <div class="recent-heading"><h2>Recent searches</h2><a href="{{ url_for('history') }}">View all</a></div>
+    {% for item in recent %}
+      <a class="recent-item" href="{{ url_for('search', q=item['query']) }}"><span>↻</span>{{ item['query'] }}</a>
+    {% endfor %}
+  </section>
+  {% elif not g.user %}
+    <p class="subtle center"> <a href="{{ url_for('register') }}">Create an account</a> to save your search history.</p>
+  {% endif %}
+</main>
+{% endblock %}

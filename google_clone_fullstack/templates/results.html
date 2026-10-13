@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ query }} · Google Clone{% endblock %}
+{% block content %}
+<main class="results-main">
+  {% include "_searchbox.html" %}
+  <nav class="result-tabs" aria-label="Search categories">
+    {% for key, label in [('web','All'),('images','Images'),('news','News'),('videos','Videos'),('maps','Maps')] %}
+      <a class="{% if category == key %}active{% endif %}" href="{{ url_for('search', q=query, type=key) }}">{{ label }}</a>
+    {% endfor %}
+  </nav>
+  <section class="external-results">
+    <div class="external-icon">↗</div>
+    <h1>Continue your search on Google</h1>
+    <p>“{{ query }}” will open in Google Search{% if category != 'web' %} for {{ category }}{% endif %}. This demo does not crawl or index the web itself.</p>
+    <a class="button button-blue" href="{{ destination }}" target="_blank" rel="noopener noreferrer">View search results</a>
+    <p class="subtle small">Your search is saved to this app's history only when you are logged in.</p>
+  </section>
+</main>
+{% endblock %}

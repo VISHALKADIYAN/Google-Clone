@@ -1,0 +1,15 @@
+<form class="search-form" action="{{ url_for('search') }}" method="get" role="search">
+  <div class="search-box">
+    <span class="search-symbol" aria-hidden="true">⌕</span>
+    <input class="search-input" type="search" name="q" value="{{ query|default('') }}" placeholder="Search the web" autocomplete="off" maxlength="300" aria-label="Search the web" required>
+    <button class="clear-search" type="button" aria-label="Clear search" title="Clear search">×</button>
+    <button class="voice-search" type="button" aria-label="Voice search" title="Voice search">🎙</button>
+  </div>
+  <div class="suggestions" hidden></div>
+  {% if show_buttons|default(false) %}
+  <div class="search-actions">
+    <button class="button button-light" type="submit">Google Search</button>
+    <button class="button button-light" type="submit" formaction="https://www.google.com/search" formtarget="_blank">Search on Google</button>
+  </div>
+  {% endif %}
+</form>

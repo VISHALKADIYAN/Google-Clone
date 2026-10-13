@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>{% block title %}Google Clone{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark small-wordmark" href="{{ url_for('index') }}" aria-label="Home">
+      <span class="c-blue">G</span><span class="c-red">o</span><span class="c-yellow">o</span><span class="c-blue">g</span><span class="c-green">l</span><span class="c-red">e</span>
+    </a>
+    <nav class="nav-links">
+      <button class="text-button" id="themeToggle" type="button" aria-label="Toggle dark mode">☾</button>
+      {% if g.user %}
+        <a href="{{ url_for('history') }}">History</a>
+        <span class="user-chip">{{ g.user['username'] }}</span>
+        <form method="post" action="{{ url_for('logout') }}" class="inline-form">
+          <button class="button button-blue button-small" type="submit">Log out</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('login') }}">Log in</a>
+        <a class="button button-blue button-small" href="{{ url_for('register') }}">Create account</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <div class="flash-stack" aria-live="polite">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+  </div>
+
+  {% block content %}{% endblock %}
+
+  <footer class="footer">
+    <div class="footer-country">India</div>
+    <div class="footer-bottom">
+      <div><a href="https://about.google/" target="_blank" rel="noopener">About</a><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a><a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a></div>
+      <span>Learning project · Not affiliated with Google</span>
+    </div>
+  </footer>
+</body>
+</html>

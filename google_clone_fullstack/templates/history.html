@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Search history · Google Clone{% endblock %}
+{% block content %}
+<main class="history-main">
+  <div class="history-heading"><div><h1>Search history</h1><p class="subtle">Only your account's searches are shown here.</p></div>
+  {% if searches %}<form method="post" action="{{ url_for('delete_history') }}" onsubmit="return confirm('Delete all your search history?')"><button class="button button-light danger" type="submit">Clear history</button></form>{% endif %}</div>
+  {% if searches %}
+    <div class="history-list">
+      {% for item in searches %}
+        <a class="history-item" href="{{ url_for('search', q=item['query']) }}"><span class="history-clock">↻</span><span class="history-query">{{ item['query'] }}</span><time>{{ item['searched_at'] }}</time><span class="history-arrow">↗</span></a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state"><div>◷</div><h2>No search history yet</h2><p>Your searches will appear here after you use the search box while logged in.</p><a class="button button-blue" href="{{ url_for('index') }}">Start searching</a></div>
+  {% endif %}
+</main>
+{% endblock %}
